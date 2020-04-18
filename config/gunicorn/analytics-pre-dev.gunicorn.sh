@@ -1,9 +1,9 @@
 #!/bin/bash   
 
 # Project directory                               
-PROJECTDIR=/webapps/demo-analytics-pre-dev 
+PROJECTDIR=/webapps/demo-analytics-pre-dev/src
 # App instance module
-ASGI_MODULE=src/server.asgi
+ASGI_MODULE=server.asgi
 # we will communicte using this unix socket                      
 SOCKFILE=/webapps/demo-analytics-pre-dev/run/unicorn_pre_dev.sock
 
@@ -15,7 +15,7 @@ GROUP=webapps
 # Number of Workers
 NUM_WORKERS=1
 
-WORKER_CLASS=venv/lib/uvicorn.workers.UvicornWorker
+WORKER_CLASS=uvicorn.workers.UvicornWorker
 
 TIMEOUT=300
 GRACEFUL_TIMEOUT=120
@@ -27,7 +27,7 @@ echo "Starting $NAME as `whoami`"
 
 # Activate the virtual environment
 cd $PROJECTDIR
-source venv/bin/activate
+source ../venv/bin/activate
 
 # Create the run directory if it doesn't exist
 RUNDIR=$(dirname $SOCKFILE)
@@ -35,7 +35,7 @@ test -d $RUNDIR || mkdir -p $RUNDIR
 
 # Start your Unicorn
 # Programs meant to be run under supervisor should not daemonize themselves (do not use --daemon)
-exec venv/bin/gunicorn ${ASGI_MODULE}:app \
+exec ../venv/bin/gunicorn ${ASGI_MODULE}:app \
     --worker-class $WORKER_CLASS \
     --workers $NUM_WORKERS \
     --timeout $TIMEOUT \

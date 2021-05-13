@@ -9,7 +9,7 @@ httptools==0.1.1
 motor==2.1.0
 orjson==2.6.5
 pathspec==0.7.0
-pydantic==1.4
+pydantic==1.6.2
 pymongo==3.10.1
 regex==2020.4.4
 starlette==0.13.2
